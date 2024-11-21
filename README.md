@@ -1,4 +1,4 @@
-#🚗 Pipeline et Reporting Automobile : Extraction, Transformation et Visualisation
+🚗 # Pipeline et Reporting Automobile : Extraction, Transformation et Visualisation
 Ce projet met en œuvre un pipeline de données performant et un tableau de bord Power BI interactif pour analyser la consommation de véhicules par marque, modèle, et type de carburant. Il combine des outils d'intégration de données via Azure Data Factory (ADF), une base de données SQL sur Azure, et une visualisation avancée avec Power BI.
 
 Présentation du projet
