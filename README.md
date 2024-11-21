@@ -6,6 +6,7 @@ Analyse des données automobiles issues de l'API Auto Ninjas à l’aide d’Azu
 
 ### 1. Extraction et chargement des données
 API utilisée : [API Auto Ninjas](https://api-ninjas.com/api).
+
 Challenge : L’API ne permet pas d’importer toutes les marques d’un coup. Solution : utilisation d’un paramètre global contenant une liste de marques, parcourue grâce à une boucle ForEach dans Azure Data Factory.
 
 Étapes principales dans ADF :
@@ -22,16 +23,26 @@ Mise en place d’une contrainte d’unicité sur toutes les colonnes pour évit
 Pour garantir un modèle de données optimal, les données brutes sont organisées en vues SQL normalisées représentant les dimensions et la table de faits :
 
 Dimensions créées
+
 V_Marques : Nom, nationalité et logo des marques.
+
 V_Modeles : Modèles associés à chaque marque.
+
 V_Carburant : Types de carburants (essence, diesel, etc.).
+
 V_Transmission : Boîtes de vitesses (automatique, manuelle).
+
 V_Categorie : Classes de véhicules (compact, SUV, etc.).
+
 V_Drive : Motricité des véhicules (traction, propulsion).
+
 Table de faits
+
 La table Faits_Voitures regroupe les indicateurs essentiels :
+
 Consommations : en ville, sur autoroute, combinée.
 Cylindrée et cylindres : directement intégrés dans la table pour simplifier les calculs.
+
 Relations créées avec toutes les dimensions.
 
 ## Modélisation Power BI
