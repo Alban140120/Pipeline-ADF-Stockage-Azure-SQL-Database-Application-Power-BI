@@ -7,11 +7,11 @@ Analyse des données automobiles issues de l'API Auto Ninjas à l’aide d’Azu
 ### 1. Extraction et chargement des données
 API utilisée : [API Auto Ninjas](https://api-ninjas.com/api).
 Challenge : L’API ne permet pas d’importer toutes les marques d’un coup. Solution : utilisation d’un paramètre global contenant une liste de marques, parcourue grâce à une boucle ForEach dans Azure Data Factory.
+
 Étapes principales dans ADF :
 Activité Web : Appel à l’API pour chaque marque.
 Activité Copier les données : Chargement des résultats dans une base SQL Azure.
-Liens de services :
-Source : Connexion à l’API.
+Source : Connexion à l’API (REST).
 Cible : Base de données SQL Azure.
 
 ### 2. Stockage dans SQL Azure
