@@ -1,16 +1,18 @@
-🚗 # Pipeline et Reporting Automobile : Extraction, Transformation et Visualisation
+# Pipeline et Reporting Automobile : Extraction, Transformation et Visualisation
 Ce projet met en œuvre un pipeline de données performant et un tableau de bord Power BI interactif pour analyser la consommation de véhicules par marque, modèle, et type de carburant. Il combine des outils d'intégration de données via Azure Data Factory (ADF), une base de données SQL sur Azure, et une visualisation avancée avec Power BI.
 
-Présentation du projet
+## Présentation du projet
 API utilisée : API d'analyse automobile pour récupérer les données de consommation des véhicules (carburant, catégories, modèles, etc.).
 Objectif : Créer une solution automatisée permettant d’exploiter les données issues de l'API pour un reporting interactif et régulièrement mis à jour.
 Pipeline de données avec Azure Data Factory
 Structure du pipeline
-Paramètre global :
+
+## Paramètre global :
 
 Les marques de véhicules proposées par l'API ne sont pas directement récupérables en une seule requête.
-Création d’un paramètre global listant toutes les marques à exploiter (["bmw", "audi", "toyota", "mercedes",...]).
-Activités du pipeline :
+Création d’un paramètre global listant toutes les marques à exploiter (["bmw","ferrari","porsche","fiat","audi","toyota","mercedes","honda","ford","volkswagen","lexus","lamborghini","land rover","jeep","opel","dacia","citroën","seat","skoda","chrysler","dodge","nissan","mitsubishi","jaguar","tesla","kia","chevrolet","mazda","smart","subaru","cadillac","alpine","aston martin","bentley","lotus","lancia","volvo"]).
+
+## Activités du pipeline :
 
 Activité ForEach : Boucle parcourant chaque marque pour exécuter deux tâches principales :
 Appel API avec activité Web : Récupère les données JSON de l’API pour une marque donnée.
