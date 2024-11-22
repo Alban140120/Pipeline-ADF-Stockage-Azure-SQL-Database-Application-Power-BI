@@ -1,0 +1,265 @@
+{
+    "name": "pipeline_call_api_voitures",
+    "properties": {
+        "activities": [
+            {
+                "name": "ForEach_call_api_voitures",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "Script_call_api_voitures",
+                        "dependencyConditions": [
+                            "Completed"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@pipeline().globalParameters.make",
+                        "type": "Expression"
+                    },
+                    "activities": [
+                        {
+                            "name": "Web_call_api_voitures",
+                            "type": "WebActivity",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "method": "GET",
+                                "headers": {
+                                    "X-Api-Key": "OAfFA9HVGxo2TpOwDJuDlw==te7xzahREAYEDICt"
+                                },
+                                "url": {
+                                    "value": "https://api.api-ninjas.com/v1/cars?make=@{item()}&limit=100",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Copy data",
+                            "description": "Copier les données vers une Azure SQL Database",
+                            "type": "Copy",
+                            "dependsOn": [
+                                {
+                                    "activity": "Web_call_api_voitures",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "source": {
+                                    "type": "RestSource",
+                                    "httpRequestTimeout": "00:01:40",
+                                    "requestInterval": "00.00:00:00.010",
+                                    "requestMethod": "GET",
+                                    "paginationRules": {
+                                        "supportRFC5988": "true"
+                                    }
+                                },
+                                "sink": {
+                                    "type": "AzureSqlSink",
+                                    "writeBehavior": "upsert",
+                                    "upsertSettings": {
+                                        "useTempDB": true,
+                                        "keys": [
+                                            "city_mpg",
+                                            "class",
+                                            "combination_mpg",
+                                            "cylinders",
+                                            "displacement",
+                                            "drive",
+                                            "fuel_type",
+                                            "highway_mpg",
+                                            "make",
+                                            "model",
+                                            "transmission",
+                                            "year"
+                                        ]
+                                    },
+                                    "sqlWriterUseTableLock": false,
+                                    "disableMetricsCollection": false
+                                },
+                                "enableStaging": false,
+                                "translator": {
+                                    "type": "TabularTranslator",
+                                    "mappings": [
+                                        {
+                                            "source": {
+                                                "path": "$['city_mpg']"
+                                            },
+                                            "sink": {
+                                                "name": "city_mpg",
+                                                "type": "Int32"
+                                            }
+                                        },
+                                        {
+                                            "source": {
+                                                "path": "$['class']"
+                                            },
+                                            "sink": {
+                                                "name": "class",
+                                                "type": "String"
+                                            }
+                                        },
+                                        {
+                                            "source": {
+                                                "path": "$['combination_mpg']"
+                                            },
+                                            "sink": {
+                                                "name": "combination_mpg",
+                                                "type": "Int32"
+                                            }
+                                        },
+                                        {
+                                            "source": {
+                                                "path": "$['cylinders']"
+                                            },
+                                            "sink": {
+                                                "name": "cylinders",
+                                                "type": "Int32"
+                                            }
+                                        },
+                                        {
+                                            "source": {
+                                                "path": "$['displacement']"
+                                            },
+                                            "sink": {
+                                                "name": "displacement",
+                                                "type": "Double"
+                                            }
+                                        },
+                                        {
+                                            "source": {
+                                                "path": "$['drive']"
+                                            },
+                                            "sink": {
+                                                "name": "drive",
+                                                "type": "String"
+                                            }
+                                        },
+                                        {
+                                            "source": {
+                                                "path": "$['fuel_type']"
+                                            },
+                                            "sink": {
+                                                "name": "fuel_type",
+                                                "type": "String"
+                                            }
+                                        },
+                                        {
+                                            "source": {
+                                                "path": "$['highway_mpg']"
+                                            },
+                                            "sink": {
+                                                "name": "highway_mpg",
+                                                "type": "Int32"
+                                            }
+                                        },
+                                        {
+                                            "source": {
+                                                "path": "$['make']"
+                                            },
+                                            "sink": {
+                                                "name": "make",
+                                                "type": "String"
+                                            }
+                                        },
+                                        {
+                                            "source": {
+                                                "path": "$['model']"
+                                            },
+                                            "sink": {
+                                                "name": "model",
+                                                "type": "String"
+                                            }
+                                        },
+                                        {
+                                            "source": {
+                                                "path": "$['transmission']"
+                                            },
+                                            "sink": {
+                                                "name": "transmission",
+                                                "type": "String"
+                                            }
+                                        },
+                                        {
+                                            "source": {
+                                                "path": "$['year']"
+                                            },
+                                            "sink": {
+                                                "name": "year",
+                                                "type": "Int32"
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "inputs": [
+                                {
+                                    "referenceName": "RestResource_call_api_voitures",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "make": "@item()"
+                                    }
+                                }
+                            ],
+                            "outputs": [
+                                {
+                                    "referenceName": "AzureSqlTable_call_api_voitures",
+                                    "type": "DatasetReference"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Script_call_api_voitures",
+                "description": "Suppression des données avant chaque lancement de la pipeline pour éviter les doublons",
+                "type": "Script",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "linkedServiceName": {
+                    "referenceName": "AzureSqlDatabase1",
+                    "type": "LinkedServiceReference"
+                },
+                "typeProperties": {
+                    "scripts": [
+                        {
+                            "type": "Query",
+                            "text": "TRUNCATE TABLE dbo.voitures;"
+                        }
+                    ],
+                    "scriptBlockExecutionTimeout": "02:00:00"
+                }
+            }
+        ],
+        "annotations": [],
+        "lastPublishTime": "2024-11-21T14:49:22Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}
