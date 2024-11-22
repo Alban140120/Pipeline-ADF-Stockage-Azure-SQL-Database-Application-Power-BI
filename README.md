@@ -92,10 +92,10 @@ Trigger quotidien : Le pipeline est programmé pour s’exécuter automatiquemen
 
 Mise à jour automatique des données sans intervention manuelle.
 
-### Dans Power BI
+### Dans Power BI :
 
 Configuration de la mise à jour automatique des datasets pour synchroniser les données Power BI avec la base SQL Azure.
 
 ## Publication et partage
 
-Application Power BI : Rapports publiés et regroupés dans une application pour faciliter le partage et l’accès.
+Application Power BI : Rapports publiés et regroupés dans un workspace, puis création de l'application pour faciliter le partage et l’accès.
