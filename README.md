@@ -7,9 +7,12 @@ Analyse des données automobiles issues de l'API Auto Ninjas à l’aide d’Azu
 ### 1. Extraction et chargement des données
 API utilisée : [API Auto Ninjas](https://api-ninjas.com/api).
 
-Challenge : L’API ne permet pas d’importer toutes les marques d’un coup. 
+Challenge : L’API ne permet pas d’importer toutes les marques d’un coup.
 
 Solution : utilisation d’un paramètre global contenant une liste de marques, parcourue grâce à une boucle ForEach dans Azure Data Factory.
+
+Liste des marques : 
+["bmw","ferrari","porsche","fiat","audi","toyota","mercedes","honda","ford","volkswagen","lexus","lamborghini","land rover","jeep","opel","dacia","citroën","seat","skoda","chrysler","dodge","nissan","mitsubishi","jaguar","tesla","kia","chevrolet","mazda","smart","subaru","cadillac","alpine","aston martin","bentley","lotus","lancia","volvo"]
 
 #### Étapes principales dans ADF :
 
@@ -29,7 +32,7 @@ Mise en place d’une contrainte d’unicité sur toutes les colonnes pour évit
 ## Normalisation des données
 Pour garantir un modèle de données optimal, les données brutes sont organisées en vues SQL normalisées représentant les dimensions et la table de faits :
 
-Dimensions créées
+### Dimensions créées :
 
 V_Marques : Nom, nationalité et logo des marques.
 
@@ -43,7 +46,9 @@ V_Categorie : Classes de véhicules (compact, SUV, etc.).
 
 V_Drive : Motricité des véhicules (traction, propulsion).
 
-Table de faits
+V_AnneeMEC : Année de mise en circulation des modèles.
+
+### Table de faits :
 
 La table Faits_Voitures regroupe les indicateurs essentiels :
 
@@ -54,21 +59,22 @@ Cylindrée et cylindres : directement intégrés dans la table pour simplifier l
 Relations créées avec toutes les dimensions.
 
 ## Modélisation Power BI
+
 ### 1. Modèle sémantique
 
-Import des données : Utilisation de la méthode Import pour des performances optimales.
+Import des données : Utilisation de la méthode DirectQuery pour des performances optimales au vu de la faible volumétrie des données.
 
-Modèle en étoile : Relation entre la table de faits et les dimensions via des clés primaires/secondaires.
+Modèle en étoile : Relation entre la table de faits et les dimensions via des clés primaires/étrangères.
 
 ### 2. Personnalisation et enrichissement
 
-Nouvelles colonnes sur Power Query :
+Nouvelles variables dans Power Query pour la dimension V_Marques :
 
 Nationalité des marques : Basée sur une logique conditionnelle.
 
 URL du logo : Pour enrichir les visuels.
 
-Création de mesures DAX :
+Création de mesures DAX pour :
 
 Exemple : Consommation moyenne par marque ou analyse de cylindres.
 
@@ -81,12 +87,15 @@ Titre dynamique : Mise en place d’un titre dépendant des interactions (par ex
 ## Automatisation
 
 ### Dans ADF :
+
 Trigger quotidien : Le pipeline est programmé pour s’exécuter automatiquement chaque jour.
 
 Mise à jour automatique des données sans intervention manuelle.
 
 ### Dans Power BI
+
 Configuration de la mise à jour automatique des datasets pour synchroniser les données Power BI avec la base SQL Azure.
 
 ## Publication et partage
+
 Application Power BI : Rapports publiés et regroupés dans une application pour faciliter le partage et l’accès.
