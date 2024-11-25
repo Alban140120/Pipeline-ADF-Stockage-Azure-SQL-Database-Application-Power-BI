@@ -99,3 +99,9 @@ Configuration de la mise à jour automatique des datasets pour synchroniser les 
 ## Publication et partage
 
 Application Power BI : Rapports publiés et regroupés dans un workspace, puis création de l'application pour faciliter le partage et l’accès.
+
+# Sources :
+
+Images [./img/]
+Codes [./codes]
+Power BI [./pbi/]
