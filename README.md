@@ -102,6 +102,8 @@ Application Power BI : Rapports publiés et regroupés dans un workspace, puis c
 
 # Sources :
 
-Images [./img/]
-Codes [./codes]
-Power BI [./pbi/]
+Images [/img/]
+
+Codes [/codes]
+
+Power BI [/pbi/]
