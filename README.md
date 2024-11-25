@@ -100,10 +100,10 @@ Configuration de la mise à jour automatique des datasets pour synchroniser les 
 
 Application Power BI : Rapports publiés et regroupés dans un workspace, puis création de l'application pour faciliter le partage et l’accès.
 
-# Sources :
+## Sources :
 
-Images [/img/]
+[Images] [./img/]
 
-Codes [/codes]
+[Codes] [./codes]
 
-Power BI [/pbi/]
+[Power BI] [./pbi/]
